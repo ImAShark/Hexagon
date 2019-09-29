@@ -5,32 +5,25 @@ using UnityEngine;
 public class GenerateHexGrid : MonoBehaviour
 {
     [SerializeField] private GameObject hexagon;
-    [SerializeField] private int amountX, amountY;
-    [SerializeField] private float height, widthOdd, widthEven, yOdd, yEven;
-    private int timesX, timesY = 1;
+    [SerializeField] private float height, width;
+
+    private float xOffset = 2.05f, zOffset = 1.8f;
     void Start()
     {
-        for (int i = 0; i < amountY; i++)
+        for (int x = 0; x < width; x++)
         {
-            
-            Instantiate(hexagon, new Vector3( 0, 0, -height * timesY), Quaternion.identity);
-
-            for (int j = 0; j < amountY; j++)
+            for (int z = 0; z < height; z++)
             {
-                if (timesY%2 == 1)
+                if (z % 2 == 0)
                 {
-                    Instantiate(hexagon, new Vector3(widthOdd * timesX, 0, -yOdd * timesY), Quaternion.identity);
-
+                    Instantiate(hexagon, new Vector3(x * xOffset, 0, z * zOffset), Quaternion.identity);
                 }
-                else if(timesY%2 == 0)
+                else
                 {
-                    Instantiate(hexagon, new Vector3(widthEven * timesX, 0, -yEven * timesY), Quaternion.identity);
+                    Instantiate(hexagon, new Vector3(x * xOffset + xOffset / 2, 0, z * zOffset), Quaternion.identity);
                 }
-                
-                timesX++;
             }
-            timesY++;
-            timesX = 0;
+
         }
 
 
